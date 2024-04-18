@@ -65,7 +65,7 @@ class OMWeatherClient : IWeatherClient
         return _trim(weather_lst, DateTime.Now.Hour);
     }
 
-    public List<Weather>? GetHourlyWeather(String city)
+    public List<Weather> GetHourlyWeather(String city)
     {
         String      request;
         String      response;

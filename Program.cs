@@ -10,7 +10,80 @@
 // var jobj = JsonObject.Parse(response);
 // Console.WriteLine(jobj["hourly"]["temperature_2m"]);
 
-var client = new OMWeatherClient();
-var w = client.GetHourlyWeather("cock");
+class Program
+{
+    private static String _h_msg = "Invalid hour value";
+    private static String _arg_msg = "Invalid arguments";
+    private static String _user_msg = "Usage: dotnet run [city] (-h | -c) (hours)";
+    private static String _sep = "-----";
 
-w.ForEach(Console.WriteLine);
+    private static void _now(List<Weather> wlst)
+    {
+        Console.WriteLine(wlst[0]);
+    }
+
+    private static void _in_h(List<Weather> wlst, int offset)
+    {
+        if (offset >= wlst.Count)
+        {
+            Console.WriteLine(_h_msg);
+        }
+        else
+        {
+            Console.WriteLine(wlst[offset]);
+        }
+    }
+
+    private static void _cont(List<Weather> wlst, int offset)
+    {
+        if (offset >= wlst.Count)
+        {
+            Console.WriteLine(_h_msg);
+        }
+
+        foreach (Weather w in wlst)
+        {
+            Console.WriteLine(w);
+            Console.WriteLine(_sep);
+        }
+    }
+
+    private static void _run(List<Weather> wlst, Args args)
+    {
+        if (args.hrs == 0)
+        {
+            _now(wlst);
+        }
+        else if (! args.cont)
+        {
+            _in_h(wlst, args.hrs);
+        }
+        else
+        {
+            _cont(wlst, args.hrs);
+        }
+    }
+
+    public static void Main(String[] margs)
+    {
+        Args args;
+
+        try
+        {
+            args = Args.Parse(margs);
+            if (! args.valid)
+            {
+                Console.WriteLine(_arg_msg + "\n" + _user_msg);
+                return ;
+            }
+
+            var client = new OMWeatherClient();
+            var weather = client.GetHourlyWeather("cock");
+            
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
