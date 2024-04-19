@@ -26,17 +26,6 @@ class OMWeatherClient : IWeatherClient
 
         return String.Format(_rq_template_head, lat, lon) + _rq_template_tail;
     }
-
-    private Task<String> _send_request(String request)
-    {
-        String response;
-
-        // response = File.ReadAllText("open_meteo_response.txt");
-        response = _http_client.GetStringAsync(request).Result;
-
-        return response;
-    }
-
     private List<T> _trim<T>(List<T> lst, int offset)
     {
         Debug.Assert(lst.Count >= offset);
@@ -66,14 +55,14 @@ class OMWeatherClient : IWeatherClient
         return _trim(weather_lst, DateTime.Now.Hour);
     }
 
-    public async List<Weather> GetHourlyWeather(String city)
+    public async Task<List<Weather>> GetHourlyWeather(String city)
     {
         String      request;
         String      response;
         JsonNode?   js_node;
 
         request = _form_request(city);
-        response = await _send_request(request);
+        response = await _http_client.GetStringAsync(request);
         js_node = JsonObject.Parse(response);
 
         if (js_node is null) throw new Exception();

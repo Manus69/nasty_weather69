@@ -7,8 +7,8 @@ struct Args
     public bool     cont {get;}
     public bool     valid {get;}
 
-    private static String _h_key = "-h";
-    private static String _c_key = "-c";
+    private static String _h_key = "-H";
+    private static String _c_key = "-C";
 
     Args(String city, int hrs, bool cont, bool valid)
     {

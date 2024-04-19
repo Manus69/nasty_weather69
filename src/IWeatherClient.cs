@@ -1,5 +1,5 @@
 
 interface IWeatherClient
 {
-    List<Weather>? GetHourlyWeather(String city);
+    Task<List<Weather>> GetHourlyWeather(String city);
 }

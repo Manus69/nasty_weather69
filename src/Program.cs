@@ -14,57 +14,47 @@ class Program
 {
     private static String _h_msg = "Invalid hour value";
     private static String _arg_msg = "Invalid arguments";
-    private static String _user_msg = "Usage: dotnet run [city] (-h | -c) (hours)";
+    private static String _user_msg = "Usage: dotnet run [city] (-H | -C) (hours)";
     private static String _sep = "-----";
 
-    private static void _now(List<Weather> wlst)
+    private static void _in_h(List<Weather> wlst, Args args)
     {
-        Console.WriteLine(wlst[0]);
-    }
-
-    private static void _in_h(List<Weather> wlst, int offset)
-    {
-        if (offset >= wlst.Count)
+        if (args.hrs >= wlst.Count)
         {
             Console.WriteLine(_h_msg);
         }
         else
         {
-            Console.WriteLine(wlst[offset]);
+            Console.WriteLine(wlst[args.hrs]);
         }
     }
 
-    private static void _cont(List<Weather> wlst, int offset)
+    private static void _cont(List<Weather> wlst, Args args)
     {
-        if (offset >= wlst.Count)
-        {
-            Console.WriteLine(_h_msg);
-        }
+        int lim;
 
-        foreach (Weather w in wlst)
+        lim = args.hrs < wlst.Count ? args.hrs : wlst.Count;
+
+        for (int k = 0; k < lim; k ++)
         {
-            Console.WriteLine(w);
+            Console.WriteLine(wlst[k]);
             Console.WriteLine(_sep);
         }
     }
 
     private static void _run(List<Weather> wlst, Args args)
     {
-        if (args.hrs == 0)
+        if (! args.cont)
         {
-            _now(wlst);
-        }
-        else if (! args.cont)
-        {
-            _in_h(wlst, args.hrs);
+            _in_h(wlst, args);
         }
         else
         {
-            _cont(wlst, args.hrs);
+            _cont(wlst, args);
         }
     }
 
-    public static void Main(String[] margs)
+    public static async Task Main(String[] margs)
     {
         Args args;
 
@@ -78,7 +68,7 @@ class Program
             }
 
             var client = new OMWeatherClient();
-            var weather = client.GetHourlyWeather(args.city!);
+            var weather = await client.GetHourlyWeather(args.city!);
             
             _run(weather, args);
         }
