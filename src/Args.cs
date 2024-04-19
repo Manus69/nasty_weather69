@@ -2,25 +2,25 @@ using System.Diagnostics;
 
 struct Args
 {
-    public String?  city {get;}
-    public int      hrs {get;}
-    public bool     cont {get;}
-    public bool     valid {get;}
+    public String?  City {get;}
+    public int      Hrs {get;}
+    public bool     Cont {get;}
+    public bool     Valid {get;}
 
-    private static String _h_key = "-H";
-    private static String _c_key = "-C";
+    private static readonly String s_hKey = "-H";
+    private static readonly String _c_key = "-C";
 
     Args(String city, int hrs, bool cont, bool valid)
     {
-        this.city = city;
-        this.hrs = hrs;
-        this.cont = cont;
-        this.valid = valid;
+        this.City = city;
+        this.Hrs = hrs;
+        this.Cont = cont;
+        this.Valid = valid;
     }
 
     public Args()
     {
-        this.valid = false;
+        this.Valid = false;
     }
 
     public static Args Parse(String[] args)
@@ -32,7 +32,7 @@ struct Args
 
         if (int.TryParse(args[2], out val) && val >= 0)
         {
-            if (args[1] == _h_key) return new Args(args[0], val, false, true);
+            if (args[1] == s_hKey) return new Args(args[0], val, false, true);
             if (args[1] == _c_key) return new Args(args[0], val, true, true);
         }
 

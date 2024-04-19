@@ -1,19 +1,19 @@
 ﻿class Program
 {
-    private static String _h_msg = "Invalid hour value";
-    private static String _arg_msg = "Invalid arguments";
-    private static String _user_msg = "Usage: dotnet run [city] (-H | -C) (hours)";
-    private static String _sep = "-----";
+    private static readonly String s_hMsg = "Invalid hour value";
+    private static readonly String s_argMsg = "Invalid arguments";
+    private static readonly String s_usrMsg = "Usage: dotnet run [city] (-H | -C) (hours)";
+    private static readonly String s_sep = "-----";
 
     private static void _in_h(List<Weather> wlst, Args args)
     {
-        if (args.hrs >= wlst.Count)
+        if (args.Hrs >= wlst.Count)
         {
-            Console.WriteLine(_h_msg);
+            Console.WriteLine(s_hMsg);
         }
         else
         {
-            Console.WriteLine(wlst[args.hrs]);
+            Console.WriteLine(wlst[args.Hrs]);
         }
     }
 
@@ -21,18 +21,18 @@
     {
         int lim;
 
-        lim = args.hrs < wlst.Count ? args.hrs : wlst.Count;
+        lim = args.Hrs < wlst.Count ? args.Hrs : wlst.Count;
 
         for (int k = 0; k < lim; k ++)
         {
             Console.WriteLine(wlst[k]);
-            Console.WriteLine(_sep);
+            Console.WriteLine(s_sep);
         }
     }
 
     private static void _run(List<Weather> wlst, Args args)
     {
-        if (! args.cont)
+        if (! args.Cont)
         {
             _in_h(wlst, args);
         }
@@ -49,14 +49,14 @@
         try
         {
             args = Args.Parse(margs);
-            if (! args.valid)
+            if (! args.Valid)
             {
-                Console.WriteLine(_arg_msg + "\n" + _user_msg);
+                Console.WriteLine(s_argMsg + "\n" + s_usrMsg);
                 return ;
             }
 
             var client = new OMWeatherClient();
-            var weather = await client.GetHourlyWeather(args.city!);
+            var weather = await client.GetHourlyWeather(args.City!);
             
             _run(weather, args);
         }
