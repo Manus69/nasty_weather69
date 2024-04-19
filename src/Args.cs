@@ -8,7 +8,7 @@ struct Args
     public bool     Valid {get;}
 
     private static readonly String s_hKey = "-H";
-    private static readonly String _c_key = "-C";
+    private static readonly String s_cKey = "-C";
 
     Args(String city, int hrs, bool cont, bool valid)
     {
@@ -33,7 +33,7 @@ struct Args
         if (int.TryParse(args[2], out val) && val >= 0)
         {
             if (args[1] == s_hKey) return new Args(args[0], val, false, true);
-            if (args[1] == _c_key) return new Args(args[0], val, true, true);
+            if (args[1] == s_cKey) return new Args(args[0], val, true, true);
         }
 
         return new Args();

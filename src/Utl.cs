@@ -1,6 +1,6 @@
 class Utl
 {
-    static Dictionary<String, (float, float)> _city_ll = new Dictionary<string, (float, float)>()
+    static Dictionary<String, (float, float)> cityLL = new Dictionary<string, (float, float)>()
     {
         {"moscow", (55.75f, 37.61f)},
         {"jerusalem", (31.76f, 35.21f)},
@@ -14,7 +14,7 @@ class Utl
         (float, float) ll;
 
         city = city.ToLower();
-        if (_city_ll.TryGetValue(city, out ll))
+        if (cityLL.TryGetValue(city, out ll))
         {
             return ll;
         }

@@ -5,43 +5,6 @@
     private static readonly String s_usrMsg = "Usage: dotnet run [city] (-H | -C) (hours)";
     private static readonly String s_sep = "-----";
 
-    private static void _in_h(List<Weather> wlst, Args args)
-    {
-        if (args.Hrs >= wlst.Count)
-        {
-            Console.WriteLine(s_hMsg);
-        }
-        else
-        {
-            Console.WriteLine(wlst[args.Hrs]);
-        }
-    }
-
-    private static void _cont(List<Weather> wlst, Args args)
-    {
-        int lim;
-
-        lim = args.Hrs < wlst.Count ? args.Hrs : wlst.Count;
-
-        for (int k = 0; k < lim; k ++)
-        {
-            Console.WriteLine(wlst[k]);
-            Console.WriteLine(s_sep);
-        }
-    }
-
-    private static void _run(List<Weather> wlst, Args args)
-    {
-        if (! args.Cont)
-        {
-            _in_h(wlst, args);
-        }
-        else
-        {
-            _cont(wlst, args);
-        }
-    }
-
     public static async Task Main(String[] margs)
     {
         Args args;
@@ -63,6 +26,43 @@
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+        }
+    }
+
+    private static void inH(List<Weather> wlst, Args args)
+    {
+        if (args.Hrs >= wlst.Count)
+        {
+            Console.WriteLine(s_hMsg);
+        }
+        else
+        {
+            Console.WriteLine(wlst[args.Hrs]);
+        }
+    }
+
+    private static void cont(List<Weather> wlst, Args args)
+    {
+        int lim;
+
+        lim = args.Hrs < wlst.Count ? args.Hrs : wlst.Count;
+
+        for (int k = 0; k < lim; k ++)
+        {
+            Console.WriteLine(wlst[k]);
+            Console.WriteLine(s_sep);
+        }
+    }
+
+    private static void _run(List<Weather> wlst, Args args)
+    {
+        if (! args.Cont)
+        {
+            inH(wlst, args);
+        }
+        else
+        {
+            cont(wlst, args);
         }
     }
 }
