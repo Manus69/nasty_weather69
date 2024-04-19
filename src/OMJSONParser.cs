@@ -7,6 +7,7 @@ class OMJSONParser : IJSONParser
     private static readonly String s_tempKey = "temperature_2m";
     private static readonly String s_pressureKey = "surface_pressure";
     private static readonly String s_precipKey = "precipitation";
+    private static readonly String s_wcodeKey = "weather_code";
 
     public List<float>? GetTemps(JsonNode jNode)
     {
@@ -22,7 +23,12 @@ class OMJSONParser : IJSONParser
     {
         return get<float>(jNode, s_precipKey);
     }
-    
+
+    public List<int>? GetWeatherCode(JsonNode jNode)
+    {
+        return get<int> (jNode, s_wcodeKey);
+    }
+
     private List<T>? get<T>(JsonNode jNode, String key)
     {
         var val = jNode[s_hKey]?[key];

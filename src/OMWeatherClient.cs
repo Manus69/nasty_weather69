@@ -43,15 +43,16 @@ class OMWeatherClient : IWeatherClient
         var temps = this.parser.GetTemps(jNode);
         var press = this.parser.GetPressure(jNode);
         var prec = this.parser.GetPrecipitation(jNode);
+        var wcode = this.parser.GetWeatherCode(jNode);
 
-        if (temps is null || press is null || prec is null) throw new Exception();
+        if (temps is null || press is null || prec is null || wcode is null) throw new Exception();
 
         weatherLst = new List<Weather>();
         len = temps.Count;
 
         for (int k = 0; k < len; k ++)
         {
-            weatherLst.Add(new Weather(temps[k], prec[k], press[k]));
+            weatherLst.Add(new Weather(temps[k], prec[k], press[k], wcode[k]));
         }
 
         return trim(weatherLst, DateTime.Now.Hour);
