@@ -20,6 +20,6 @@ class Weather
             return obj is null ? "_" : obj.ToString();
         }
 
-        return $"temp: {this.temp} precipitation: {_to_str(this.precipitation)} pressure: {_to_str(this.pressure)} code: {_to_str(this.code)}";
+        return $"temp: {this.temp} C precipitation: {_to_str(this.precipitation)} mm pressure: {_to_str(this.pressure)} hPa code: {_to_str(this.code)}";
     }
 }

@@ -27,11 +27,12 @@ class OMWeatherClient : IWeatherClient
         return String.Format(_rq_template_head, lat, lon) + _rq_template_tail;
     }
 
-    private String _send_request(String request)
+    private Task<String> _send_request(String request)
     {
         String response;
 
-        response = File.ReadAllText("open_meteo_response.txt");
+        // response = File.ReadAllText("open_meteo_response.txt");
+        response = _http_client.GetStringAsync(request).Result;
 
         return response;
     }
@@ -65,14 +66,14 @@ class OMWeatherClient : IWeatherClient
         return _trim(weather_lst, DateTime.Now.Hour);
     }
 
-    public List<Weather> GetHourlyWeather(String city)
+    public async List<Weather> GetHourlyWeather(String city)
     {
         String      request;
         String      response;
         JsonNode?   js_node;
 
         request = _form_request(city);
-        response = _send_request(request);
+        response = await _send_request(request);
         js_node = JsonObject.Parse(response);
 
         if (js_node is null) throw new Exception();

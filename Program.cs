@@ -78,8 +78,9 @@ class Program
             }
 
             var client = new OMWeatherClient();
-            var weather = client.GetHourlyWeather("cock");
+            var weather = client.GetHourlyWeather(args.city!);
             
+            _run(weather, args);
         }
         catch (Exception ex)
         {
