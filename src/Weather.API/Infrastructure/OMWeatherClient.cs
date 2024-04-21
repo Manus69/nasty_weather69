@@ -72,5 +72,4 @@ class OMWeatherClient : IWeatherClient
 
         return dto;
     }
-
 }
