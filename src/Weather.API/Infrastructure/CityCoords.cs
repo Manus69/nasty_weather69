@@ -1,6 +1,6 @@
-class Utl
+class CityCoords
 {
-    static Dictionary<String, (float, float)> cityLL = new Dictionary<string, (float, float)>()
+    static Dictionary<String, (float, float)> cityLL = new Dictionary<string, (float, float)>(StringComparer.OrdinalIgnoreCase)
     {
         {"moscow", (55.75f, 37.61f)},
         {"jerusalem", (31.76f, 35.21f)},
@@ -11,10 +11,7 @@ class Utl
 
     public static (float, float) GetLatLong(String city)
     {
-        (float, float) ll;
-
-        city = city.ToLower();
-        if (cityLL.TryGetValue(city, out ll))
+        if (cityLL.TryGetValue(city, out var ll))
         {
             return ll;
         }

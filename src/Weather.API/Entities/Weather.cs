@@ -1,18 +1,5 @@
-class Weather
+record Weather(float temp, float? precipitation=null, float? pressure=null, int? code=null)
 {
-    float   temp;
-    float?  precipitation;
-    float?  pressure;
-    int?    code;
-
-    public Weather(float temp, float? precipitation=null, float? pressure=null, int? code=null)
-    {
-        this.temp = temp;
-        this.precipitation = precipitation;
-        this.pressure = pressure;
-        this.code = code;
-    }
-
     public override string ToString()
     {
         String result;

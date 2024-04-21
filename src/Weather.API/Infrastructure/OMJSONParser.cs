@@ -1,7 +1,9 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-class OMJSONParser : IJSONParser
+//old stuff
+
+class OMJSONParser
 {
     private static readonly String s_hKey = "hourly";
     private static readonly String s_tempKey = "temperature_2m";
